@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 from sqlalchemy import func
 from sqlalchemy.orm import sessionmaker
 
-from restaurants import Base, Restaurant
+from restaurants import Base, Restaurant, MenuItem
 import cgi
 
 engine = create_engine('sqlite:///restaurants.db')
@@ -48,8 +48,10 @@ class webServerHandler(BaseHTTPRequestHandler):
                     output += "<p>"
                     output += entry.name
                     output += " <a href='/restaurants/" + str(entry.id) + "/edit'>Edit</a> | <a href='/restaurants/" + str(entry.id) + "/delete'>Delete</a>"
-                    output += "</p>"
 
+                    output += restaurants.menuitems
+
+                    output += "</p>"
                 output += "<a href='/restaurants/new'>New restaurant</a>"
                 self.write_output(output)
                 return
